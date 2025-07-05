@@ -12,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'oyd3i2rs2yb26lic',
       password: 'mpnfrleo095gheeb',
       database: 'wz12oseoex68yd4p',
-      entities: ['dist/src/entities/entities/*.js'],
+      entities: ['dist/src/entities/*.js'],
       synchronize: true,
       logging: ['error'],
     }),
