@@ -27,12 +27,6 @@ export class UsersTest extends BaseEntity {
   })
   isBestFriend: number | null;
 
-  @Column('int', { name: 'is_new', nullable: true })
-  isNew: number | null;
-
-  @Column('int', { name: 'is_old', nullable: true })
-  isOld: number | null;
-
   @Column('int', { name: 'is_brand_new', nullable: true })
   isBrandNews: number | null;
 }
