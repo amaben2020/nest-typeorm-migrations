@@ -1,4 +1,4 @@
-name: Sync TypeORM Schema on Merge
+name: Run DB Migrations on Merge
 
 on:
   push:
@@ -22,27 +22,33 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🛠 Set NODE_ENV and create .env.{env}
+      # Detect environment based on branch
+      - name: 🛠 Set environment variables
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
             echo "NODE_ENV=production" >> $GITHUB_ENV
-            ENV_FILE=".env.production"
-            echo "DB_HOST=${{ secrets.PROD_DB_HOST }}" >> $ENV_FILE
-            echo "DB_PORT=${{ secrets.PROD_DB_PORT }}" >> $ENV_FILE
-            echo "DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}" >> $ENV_FILE
-            echo "DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}" >> $ENV_FILE
-            echo "DB_NAME=${{ secrets.PROD_DB_DATABASE }}" >> $ENV_FILE
+            echo "DB_HOST=${{ secrets.PROD_DB_HOST }}" >> $GITHUB_ENV
+            echo "DB_PORT=${{ secrets.PROD_DB_PORT }}" >> $GITHUB_ENV
+            echo "DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}" >> $GITHUB_ENV
+            echo "DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}" >> $GITHUB_ENV
+            echo "DB_DATABASE=${{ secrets.PROD_DB_DATABASE }}" >> $GITHUB_ENV
           else
             echo "NODE_ENV=staging" >> $GITHUB_ENV
-            ENV_FILE=".env.staging"
-            echo "DB_HOST=${{ secrets.STAGING_DB_HOST }}" >> $ENV_FILE
-            echo "DB_PORT=${{ secrets.STAGING_DB_PORT }}" >> $ENV_FILE
-            echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $ENV_FILE
-            echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $ENV_FILE
-            echo "DB_NAME=${{ secrets.STAGING_DB_DATABASE }}" >> $ENV_FILE
+            echo "DB_HOST=${{ secrets.STAGING_DB_HOST }}" >> $GITHUB_ENV
+            echo "DB_PORT=${{ secrets.STAGING_DB_PORT }}" >> $GITHUB_ENV
+            echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $GITHUB_ENV
+            echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $GITHUB_ENV
+            echo "DB_DATABASE=${{ secrets.STAGING_DB_DATABASE }}" >> $GITHUB_ENV
           fi
 
-      - name: 🧪 Build
+      - name: 🧪 Debug environment
+        run: |
+          echo "NODE_ENV=$NODE_ENV"
+          echo "DB_HOST=$DB_HOST"
+          echo "DB_PORT=$DB_PORT"
+          echo "DB_DATABASE=$DB_DATABASE"
+
+      - name: 🔨 Build project
         run: npm run build
 
       - name: 🚀 Run migrations
