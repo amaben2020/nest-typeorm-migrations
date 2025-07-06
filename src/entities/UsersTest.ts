@@ -34,5 +34,5 @@ export class UsersTest extends BaseEntity {
   isOld: number | null;
 
   @Column('int', { name: 'is_brand_new', nullable: true })
-  isBrandNew: number | null;
+  isBrandNews: number | null;
 }
