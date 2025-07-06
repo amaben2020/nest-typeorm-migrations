@@ -13,11 +13,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: 'mpnfrleo095gheeb',
       database: 'wz12oseoex68yd4p',
       entities: ['dist/src/entities/*.js'],
+      // disable in staging and production
       synchronize: true,
+      // migrationsRun: true,
       logging: ['error'],
     }),
   ],
   controllers: [AppController],
+  // disable in staging and production
   providers: [AppService],
 })
 export class AppModule {}

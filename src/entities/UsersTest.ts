@@ -35,7 +35,4 @@ export class UsersTest extends BaseEntity {
 
   @Column('int', { name: 'is_brand_new', nullable: true })
   isBrandNew: number | null;
-
-  @Column('int', { name: 'is_brand_new_test', nullable: true })
-  isNewTest: number | null;
 }
