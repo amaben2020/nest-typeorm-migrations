@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - staging
-      - prod
+      - main
 
 jobs:
   migrations:
@@ -19,7 +19,7 @@ jobs:
           node-version: 18
 
       - name: Set environment variables
-        if: github.ref == 'refs/heads/prod'
+        if: github.ref == 'refs/heads/main'
         run: |
           echo "NODE_ENV=production" >> $GITHUB_ENV
           echo "DB_HOST=${{ secrets.PROD_DB_HOST }}" >> $GITHUB_ENV
