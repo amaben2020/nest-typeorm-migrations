@@ -26,7 +26,4 @@ export class UsersTest extends BaseEntity {
     default: () => "'0'",
   })
   isBestFriend: number | null;
-
-  @Column('int', { name: 'is_brand_news', nullable: true })
-  isBrandNew: number | null;
 }
