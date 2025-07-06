@@ -49,4 +49,6 @@ jobs:
           echo "NODE_ENV: $NODE_ENV"
 
       - name: Run migrations
-        run: npm run migration:run
+        run: |
+          npx nest build
+          npx typeorm -d dist/db/data-source.js migration:run
