@@ -29,4 +29,7 @@ export class UsersTest extends BaseEntity {
 
   @Column('int', { name: 'is_brand_news', nullable: true })
   isBrandNew: number | null;
+
+  @Column('int', { name: 'is_Nice', nullable: true })
+  isNice: number | null;
 }
